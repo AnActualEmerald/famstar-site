@@ -1,15 +1,15 @@
 import {useState} from 'react';
 
-function MessageInput(key) {
+function MessageInput(props) {
     const [msg, setMsg] = useState('');
 
     const sendMessage = () => {
-        fetch('/message', {
+        fetch('/api/message', {
             method: 'PUT',
-            headers: {'Content-Type':'application/json', 'key':key},
-            body: {
-                content: msg
-            }
+            headers: {'Content-Type':'application/json', 'key':props.apiKey},
+            body: `{
+                "content": "${msg}"
+            }`
         });
     }
 
@@ -17,7 +17,7 @@ function MessageInput(key) {
         <section>
             <label htmlFor="message">Message to send:</label><br/>
             <textarea name="message" id="message" rows='20' cols='100' onChange={(e) => setMsg(e.target.value)} value={msg}></textarea>
-            <button type="reset" onClick={sendMessage}>Send</button>
+            <button onClick={sendMessage} type="button">Send</button>
         </section>
     );
 }

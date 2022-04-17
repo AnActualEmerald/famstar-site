@@ -22,7 +22,7 @@ const [key, setKey] = useState('');
             <option value="message">a message</option>
           </select><br/>
           <input type="text" onChange={(e) => setKey(e.target.value)}/><br/>
-          {selection === 'image' ? <ImageInput/> : <MessageInput key={key}/>}
+          {selection === 'image' ? <ImageInput apiKey={key}/> : <MessageInput apiKey={key}/>}
         </form>
       </main>
     </div>

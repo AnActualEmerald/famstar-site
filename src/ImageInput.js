@@ -1,14 +1,14 @@
 import {useState} from 'react';
 
 
-function ImageInput(key) {
+function ImageInput(props) {
     const [file, setFile] = useState();
     const sendImage = () => {
         const fd = new FormData();
-        fd.set('file', file)
-        fetch('/image', {
+        fd.append('imageFile', file);
+        fetch('/api/image', {
             method: 'POST',
-            headers: {'Content-Type':'multipart/form-data', 'key':key},
+            headers: {'key':props.apiKey},
             body: fd
         });
     }
