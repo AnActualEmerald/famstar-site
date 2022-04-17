@@ -16,8 +16,8 @@ function MessageInput(props) {
     return(
         <section>
             <label htmlFor="message">Message to send:</label><br/>
-            <textarea name="message" id="message" rows='20' cols='100' onChange={(e) => setMsg(e.target.value)} value={msg}></textarea>
-            <button onClick={sendMessage} type="button">Send</button>
+            <textarea name="message" id="message" rows='10' cols='100' onChange={(e) => setMsg(e.target.value)} value={msg}></textarea><br/>
+            <button onClick={sendMessage} type="button" id="submit">Send</button>
         </section>
     );
 }

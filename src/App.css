@@ -1,38 +1,66 @@
 .App {
   text-align: center;
+  display: flexbox;
+  flex-direction: column;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.Input {
+  margin-top: 100px;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+}
+
+.inputHead {
+  border: none;
+  align-self: center;
+  margin-bottom: 100px;
+}
+
+.inputFoot {
+  align-self: center;
+  border: none;
+}
+
+.inputFoot #file {
+  margin-top: 30px;
+  margin-bottom: 20px;
+  align-self: center;
+  width: fit-content;
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.inputFoot #submit {
+  width: 100px;
+  height: 75px;
+  background-color: lightgreen;
+  border: none;
+  border-radius: 9px;
+  margin-top: 50px
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.Input textarea {
+  border-radius: 9px;
+  border: none;
+  margin-top: 10px;
+  background-color: #262625;
+  color: white;
+  padding: 10px;
+}
+
+.Input #apiKey {
+  border: none;
+  border-radius: 9px;
+  background-color: #262625;
+  color: white;
+  padding: 10px;
+  margin-top: 10px;
+}
+
+.Input #Selection {
+  background-color: #262625;
+  border: none;
+  border-radius: 9px;
+  color: white;
+  padding: 10px;
+  margin-bottom: 10px;
 }

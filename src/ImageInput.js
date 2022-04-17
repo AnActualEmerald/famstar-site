@@ -14,9 +14,9 @@ function ImageInput(props) {
     }
     return (
         <section>
-            <label htmlFor="file">Image to upload:</label>
+            <label htmlFor="file">Image to upload:</label><br/>
             <input type="file" id="file" onChange={(e) => setFile(e.target.files[0])}/><br/>
-            <button type="reset" onClick={sendImage}>Send</button>
+            <button id="submit" onClick={sendImage}>Send</button>
         </section>
     );
 }
