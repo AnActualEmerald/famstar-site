@@ -1,7 +1,9 @@
 import './App.css';
 import ImageInput from './ImageInput';
 import MessageInput from './MessageInput';
+import StatusAlert from './StatusAlert';
 import {useState} from 'react';
+
 
 
 function App() {

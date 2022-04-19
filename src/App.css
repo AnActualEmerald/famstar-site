@@ -64,3 +64,8 @@
   padding: 10px;
   margin-bottom: 10px;
 }
+
+.StatusAlert {
+  color: white;
+  margin-top: 50pt;
+}
