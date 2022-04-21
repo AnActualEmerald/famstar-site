@@ -37,7 +37,7 @@ function MessageInput(props) {
         const delete_after = `"deleteAfter": ${temp},`;
         fetch("/api/message", {
             method: "PUT",
-            headers: { key: props.apiKey },
+            headers: { 'Content-Type': 'application/json', key: props.apiKey },
             body: `{${temp ? delete_after : ""} "content": "${msg}" }`,
         }).then((v) => {
             if (v.ok) {
