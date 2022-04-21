@@ -11,7 +11,7 @@ function ImageInput(props) {
             key: props.apiKey,
         };
         if (temp) {
-            headers["DELETE_AFTER"] = temp;
+            headers["Delete-After"] = temp;
         }
         const fd = new FormData();
         fd.append("imageFile", file);
