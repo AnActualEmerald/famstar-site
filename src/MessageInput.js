@@ -1,5 +1,5 @@
-import {useState} from 'react';
-import Notification from 'rc-notification';
+import { useState } from "react";
+import Notification from "rc-notification";
 
 // let errorNotification = '';
 // Notification.newInstance({style: {
@@ -28,40 +28,77 @@ import Notification from 'rc-notification';
 //     content: <span>Test Notif</span>
 // }
 
-
 function MessageInput(props) {
-    const [msg, setMsg] = useState('');
-    const [alert, setAlert] = useState('');
-    // const [error, errHolder] = errorNotification.useNotification();
-    // const [success, succHolder] = successNotification.useNotification();
+    const [msg, setMsg] = useState("");
+    const [alert, setAlert] = useState("");
+    const [temp, setTemp] = useState(0);
 
     const sendMessage = () => {
-        fetch('/api/message', {
-            method: 'PUT',
-            headers: {'Content-Type':'application/json', 'key':props.apiKey},
+        const delete_after = `delete_after: ${temp},`;
+        fetch("/api/message", {
+            method: "PUT",
+            headers: { "Content-Type": "application/json", key: props.apiKey },
             body: `{
+                ${temp ? delete_after : ""}
                 "content": "${msg}"
-            }`
+            }`,
         }).then((v) => {
             if (v.ok) {
-                setAlert('Status: OK!')
-                setTimeout(() => setAlert(''), 5000);
-                // successNotification.notice({content:<span>Success!</span>, duration: 5, closable: true});
-            }else {
-                setAlert(`Status: Error! ${v.status} - ${v.statusText}`);
-                setTimeout(() => setAlert(''), 5000);
-                // errorNotification.notice({content:<p>Failure!</p>, duration: 5, closable: true});
-
+                setAlert(
+                    <p className="StatusAlert">
+                        Status: <span style={{ color: "green" }}>OK!</span>
+                    </p>
+                );
+                setTimeout(() => setAlert(""), 5000);
+            } else {
+                setAlert(
+                    <p className="StatusAlert">
+                        Status:{" "}
+                        <span style={{ color: "red" }}>
+                            Error! {v.status} - {v.statusText}
+                        </span>
+                    </p>
+                );
+                setTimeout(() => setAlert(""), 5000);
             }
         });
-    }
+    };
 
-    return(
+    return (
         <section>
-            <label htmlFor="message">Message to send:</label><br/>
-            <textarea name="message" id="message" rows='10' cols='100' onChange={(e) => setMsg(e.target.value)} value={msg}></textarea><br/>
-            <button onClick={sendMessage} type="button" id="submit">Send</button><br/>
-            <p className='StatusAlert'>{alert ? alert : ''}</p>
+            <label className="tooltip" htmlFor="ephemeral">
+                <span className="tooltiptext">
+                    How many minutes after sending should this message be
+                    deleted. Leave 0 or blank for infinite.
+                </span>
+                Delete after:
+            </label>
+            <input
+                type="number"
+                id="ephemeral"
+                onChange={(e) => setTemp(e.target.valueAsNumber)}
+            />
+            <span> minutes</span>
+            <br />
+            <label htmlFor="message">Message to send:</label>
+            <br />
+            <textarea
+                name="message"
+                id="message"
+                rows="10"
+                cols="100"
+                onChange={(e) => {
+                    e.preventDefault();
+                    setMsg(e.target.value);
+                }}
+                value={msg}
+            ></textarea>
+            <br />
+            <button onClick={sendMessage} type="button" id="submit">
+                Send
+            </button>
+            <br />
+            {alert ? alert : ""}
         </section>
     );
 }
