@@ -44,17 +44,11 @@ function ImageInput(props) {
         <section>
             <label className="tooltip" htmlFor="ephemeral">
                 <span className="tooltiptext">
-                    How many minutes after sending should this message be
-                    deleted. Leave 0 or blank for infinite.
+                    When the document should be deleted. Leave blank for a permenant doc.
                 </span>
                 Delete after:
             </label>
-            <input
-                type="number"
-                id="ephemeral"
-                onChange={(e) => setTemp(e.target.valueAsNumber)}
-            />
-            <span> minutes</span>
+            <input type="datetime-local" id="ephemeral"  onChange={(e) => setTemp(e.target.valueAsNumber * 1000)}></input>
             <br />
             <label htmlFor="file">Image to upload:</label>
             <br />

@@ -34,14 +34,11 @@ function MessageInput(props) {
     const [temp, setTemp] = useState(0);
 
     const sendMessage = () => {
-        const delete_after = `delete_after: ${temp},`;
+        const delete_after = `"deleteAfter": ${temp},`;
         fetch("/api/message", {
             method: "PUT",
-            headers: { "Content-Type": "application/json", key: props.apiKey },
-            body: `{
-                ${temp ? delete_after : ""}
-                "content": "${msg}"
-            }`,
+            headers: { key: props.apiKey },
+            body: `{${temp ? delete_after : ""} "content": "${msg}" }`,
         }).then((v) => {
             if (v.ok) {
                 setAlert(
@@ -68,16 +65,17 @@ function MessageInput(props) {
         <section>
             <label className="tooltip" htmlFor="ephemeral">
                 <span className="tooltiptext">
-                    How many minutes after sending should this message be
-                    deleted. Leave 0 or blank for infinite.
+                    When the document should be deleted. Leave blank for a permenant doc.
                 </span>
                 Delete after:
             </label>
-            <input
+            <input type="datetime-local" id="ephemeral"  onChange={(e) => setTemp(e.target.valueAsNumber * 1000)}></input>
+
+            {/* <input
                 type="number"
                 id="ephemeral"
                 onChange={(e) => setTemp(e.target.valueAsNumber)}
-            />
+            /> */}
             <span> minutes</span>
             <br />
             <label htmlFor="message">Message to send:</label>

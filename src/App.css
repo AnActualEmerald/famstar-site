@@ -92,8 +92,8 @@
   /* Position the tooltip text */
   position: absolute;
   z-index: 1;
-  bottom: 150%;
-  left: 50%;
+  bottom: 160%;
+  left: -50%;
   margin-left: -60px;
 
   /* Fade in tooltip */
