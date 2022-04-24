@@ -1,14 +1,15 @@
 import { useState } from "react";
 
-function ImageInput(props) {
+function ImageInput({ apiKey, reset }) {
     const [file, setFile] = useState();
     const [alert, setAlert] = useState("");
     const [temp, setTemp] = useState(0);
+    const [date, setDate] = useState();
 
     const sendImage = (e) => {
         e.preventDefault();
         const headers = {
-            key: props.apiKey,
+            key: apiKey,
         };
         if (temp) {
             headers["Delete-After"] = temp;
@@ -27,6 +28,8 @@ function ImageInput(props) {
                     </p>
                 );
                 setTimeout(() => setAlert(""), 5000);
+                setDate(null);
+                setFile(null);
             } else {
                 setAlert(
                     <p className="StatusAlert">
@@ -44,11 +47,17 @@ function ImageInput(props) {
         <section>
             <label className="tooltip" htmlFor="ephemeral">
                 <span className="tooltiptext">
-                    When the document should be deleted. Leave blank for a permenant doc.
+                    When the document should be deleted. Leave blank for a
+                    permenant doc.
                 </span>
                 Delete after:
             </label>
-            <input type="datetime-local" id="ephemeral"  onChange={(e) => setTemp(e.target.valueAsNumber * 1000)}></input>
+            <input
+                type="datetime-local"
+                id="ephemeral"
+                onChange={(e) => setTemp(e.target.valueAsNumber * 1000)}
+                value={date}
+            ></input>
             <br />
             <label htmlFor="file">Image to upload:</label>
             <br />
@@ -56,6 +65,7 @@ function ImageInput(props) {
                 type="file"
                 id="file"
                 onChange={(e) => setFile(e.target.files[0])}
+                value={file}
             />
             <br />
             <button id="submit" onClick={sendImage}>
