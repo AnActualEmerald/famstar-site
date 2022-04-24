@@ -76,7 +76,15 @@ function MessageInput(props) {
             <input
                 type="datetime-local"
                 id="ephemeral"
-                onChange={(e) => setTemp(e.target.valueAsNumber * 1000)}
+                onChange={(e) => {
+                    const t = e.target.valueAsDate;
+                    //midnight of the next day
+                    t.setDate(t.getDate() + 1);
+                    t.setHours(24, 0, 0, 0);
+                    //send the difference between now and then to get around any timezone issues
+                    setTemp((t.getTime() - Date.now()) * 1000);
+                }
+                }
                 value={date}
             ></input>
 

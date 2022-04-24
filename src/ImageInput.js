@@ -29,7 +29,7 @@ function ImageInput({ apiKey, reset }) {
                 );
                 setTimeout(() => setAlert(""), 5000);
                 setDate(null);
-                setFile(null);
+                document.getElementById("fileForm").reset();
             } else {
                 setAlert(
                     <p className="StatusAlert">
@@ -53,20 +53,30 @@ function ImageInput({ apiKey, reset }) {
                 Delete after:
             </label>
             <input
-                type="datetime-local"
+                type="date"
                 id="ephemeral"
-                onChange={(e) => setTemp(e.target.valueAsNumber * 1000)}
+                onChange={(e) => {
+                    const t = e.target.valueAsDate;
+                    //midnight of the next day
+                    t.setDate(t.getDate() + 1);
+                    t.setHours(24, 0, 0, 0);
+                    //send the difference between now and then to get around any timezone issues
+                    setTemp((t.getTime() - Date.now()) * 1000);
+                }
+                }
                 value={date}
             ></input>
             <br />
+            <form id="fileForm">
             <label htmlFor="file">Image to upload:</label>
             <br />
             <input
                 type="file"
                 id="file"
                 onChange={(e) => setFile(e.target.files[0])}
-                value={file}
+                
             />
+            </form>
             <br />
             <button id="submit" onClick={sendImage}>
                 Send
