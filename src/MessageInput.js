@@ -32,6 +32,7 @@ function MessageInput(props) {
     const [msg, setMsg] = useState("");
     const [alert, setAlert] = useState("");
     const [temp, setTemp] = useState(0);
+    const [date, setDate] = useState();
 
     const sendMessage = () => {
         const delete_after = `"deleteAfter": ${temp},`;
@@ -46,6 +47,8 @@ function MessageInput(props) {
                         Status: <span style={{ color: "green" }}>OK!</span>
                     </p>
                 );
+                setDate(null);
+                setMsg("");
                 setTimeout(() => setAlert(""), 5000);
             } else {
                 setAlert(
@@ -65,11 +68,17 @@ function MessageInput(props) {
         <section>
             <label className="tooltip" htmlFor="ephemeral">
                 <span className="tooltiptext">
-                    When the document should be deleted. Leave blank for a permenant doc.
+                    When the document should be deleted. Leave blank for a
+                    permenant doc.
                 </span>
                 Delete after:
             </label>
-            <input type="datetime-local" id="ephemeral"  onChange={(e) => setTemp(e.target.valueAsNumber * 1000)}></input>
+            <input
+                type="datetime-local"
+                id="ephemeral"
+                onChange={(e) => setTemp(e.target.valueAsNumber * 1000)}
+                value={date}
+            ></input>
 
             {/* <input
                 type="number"
