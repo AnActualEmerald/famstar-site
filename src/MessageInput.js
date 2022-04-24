@@ -35,7 +35,7 @@ function MessageInput(props) {
     const [date, setDate] = useState();
 
     const sendMessage = () => {
-        const delete_after = `"deleteAfter": ${temp},`;
+        const delete_after = `"deleteAfter": "${temp}",`;
         fetch("/api/message", {
             method: "PUT",
             headers: { 'Content-Type': 'application/json', key: props.apiKey },
@@ -74,15 +74,16 @@ function MessageInput(props) {
                 Delete after:
             </label>
             <input
-                type="datetime-local"
+                type="date"
                 id="ephemeral"
                 onChange={(e) => {
                     const t = e.target.valueAsDate;
-                    //midnight of the next day
                     t.setDate(t.getDate() + 1);
                     t.setHours(24, 0, 0, 0);
+                    // console.log(t);
                     //send the difference between now and then to get around any timezone issues
-                    setTemp((t.getTime() - Date.now()) * 1000);
+                    setTemp(t.toISOString());
+                    
                 }
                 }
                 value={date}
