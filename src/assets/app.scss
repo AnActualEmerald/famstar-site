@@ -1,5 +1,13 @@
+@import "./colors.scss";
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 body {
+    font-family: 'Roboto', sans-serif;
     width: 100%;
     text-align: center;
-    background-color: #202020;
+    background-color: $bg-primary;
+    overflow-x: hidden;
+}
+
+fieldset {
+    border: none;
 }

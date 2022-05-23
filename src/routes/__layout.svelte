@@ -1,5 +1,6 @@
 <script lang="ts">
     import "../assets/app.scss";
+    
 
     let selected = [true, false];
 
@@ -21,31 +22,37 @@
 
 
 <style lang="scss">
+    @import "../assets/colors.scss";
+    $bg-lighter: lighten($color: $accent-variant, $amount: 8%);
     nav{
         ul{
             display: flex;
             padding: 0px;
             justify-content: center;
             li {
-                border: 1px solid lighten($color: #202020, $amount: 5%);
+                border: 1px solid $accent-variant;
                 padding: 10px;
                 text-align: center;
                 display: inline;
                 list-style: none;
                 user-select: none;
                 min-width: 100pt;
-                color: #017ec6;
+                color: $text-primary;
                 width: max-content;
+                font-size: larger;
+                border-radius: 3px;
+                margin: 5px;
             }
             li:hover {   
-               background-color: lighten($color: #202020, $amount: 5%);
+               background-color: $accent-primary;
             }
             li.selected {
-                background-color: lighten($color: #202020, $amount: 5%);
+                background-color: $accent-primary;
             }
         }
     }
     main {
-        color: #017ec6;
+        color: $text-primary;
+        user-select: none;
     }
 </style>
