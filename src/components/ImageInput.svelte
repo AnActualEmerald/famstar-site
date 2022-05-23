@@ -1,6 +1,6 @@
 <script lang="ts">
     import Dropzone from "svelte-file-dropzone";
-    import {fade, fly, slide} from "svelte/transition";
+    import {crossfade, fade, fly, slide} from "svelte/transition";
     import {apiKey} from "../store/state";
 
     let files = new Array<File>();
@@ -46,12 +46,12 @@
     }
 </script>
 
-<fieldset class="image">
+<fieldset out:slide|local class="image">
     <Dropzone on:drop={handleFilesSelect} accept={["image/png", "image/jpg"]} container-classes="dropzone">
     </Dropzone>
     {#if files.length > 0}
     <div in:fade out:fade>
-        <input type="button" value="Submit" on:click={sendFiles} />
+        <input class="submit" type="button" value="Submit" on:click={sendFiles} />
         <p>Going to send: </p>
         <ul>
             {#each files as f, i}
@@ -64,34 +64,14 @@
 
 <style lang="scss"> 
     @import "../assets/colors.scss";
-    fieldset {
+    .image {
         display: flex;
         flex-direction: column;
         margin: 20px;
         font-size: larger;
         color: $text-primary;
         align-items: center;
-        
-        label {
-            display:block;
-        }
-        input[type="button"] {
-            border: none;
-            border-radius: 5px;
-            background-color: $accent-primary;
-            color: $text-primary;
-            padding: 30px;
-            margin: 20px;
-            
 
-        }
-        input[type="button"]:hover {
-            background-color: lighten($accent-primary, 5%);
-        }
-        input[type="button"]:active {
-            background-color: $accent-variant;
-        }
-        
         
         ul{
             margin: 10px;

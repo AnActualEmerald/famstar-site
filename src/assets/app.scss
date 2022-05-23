@@ -11,3 +11,21 @@ body {
 fieldset {
     border: none;
 }
+
+
+.submit {
+    border: none;
+    border-radius: 5px;
+    background-color: $accent-primary;
+    color: $text-primary;
+    padding: 30px;
+    margin: 20px;
+    
+
+}
+.submit:hover {
+    background-color: lighten($accent-primary, 5%);
+}
+.submit:active {
+    background-color: $accent-variant;
+}
