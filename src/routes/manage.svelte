@@ -1,11 +1,10 @@
 <script lang="ts">
 	import DocCard from '../components/DocCard.svelte';
 	let key: string = '';
-	let page = 1;
 
 	let docs: any[] = [];
 	$: {
-		fetch(`/api/docs?page=${page}`, { headers: { key: key } })
+		fetch(`/api/docs`, { headers: { key: key } })
 			.then((v) => {
 				if (v.ok) {
 					v.json().then((j) => {
@@ -24,32 +23,51 @@
 		//TODO: handle loging in across the entire site, perhaps with individual users
 		console.log('This will do something cool some day');
 	}
+
+	function removeCard(e: any) {
+		docs = docs.filter((d) => d.path !== e.detail.path);
+	}
 </script>
 
-<h1>This bit is under construction :)</h1>
 <form on:submit|preventDefault={login}>
 	<label for="password">Password: </label>
 	<input id="password" type="password" bind:value={key} />
 </form>
 
 <div class="docs">
-	{#each docs as d}
-		{#if d.path.startsWith('/image')}
-			<DocCard kind="image" doc={d} {key}/>
-		{:else}
-			<DocCard kind="message" doc={d} {key}/>
-		{/if}
-	{/each}
+	{#key docs}
+		{#each docs as d}
+			{#if d.path.startsWith('/image')}
+				<DocCard kind="image" doc={d} {key} on:delete={removeCard} />
+			{:else}
+				<DocCard kind="message" doc={d} {key} on:delete={removeCard} />
+			{/if}
+		{/each}
+	{/key}
 </div>
 
 <style lang="scss">
 	.docs {
+		display: grid;
+		width: 75%;
 		margin: 10px;
 		position: absolute;
 		left: 50%;
 		transform: translateX(-50%);
-		grid-template-columns: 25% 25% 25% 25%;
-		display: grid;
-		gap: 10px;
+		grid-template-columns: 20% 20% 20% 20%;
+		gap: 3em;
+		padding-left: 1.5em;
+		padding-right: 1.5em;
+		margin-top: 3em;
 	}
+		input {
+			border: none;
+			border-radius: 9px;
+			padding: 9px;
+		}
+		label {
+			font-size: x-large;
+			vertical-align: middle;
+			margin-right: 10px;
+		}
 </style>

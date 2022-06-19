@@ -11,7 +11,7 @@
 </script>
 
 <script lang="ts">
-	import { onMount } from 'svelte';
+	import { onMount, createEventDispatcher } from 'svelte';
 	export let doc: any;
 	export let kind: DocKind;
 	export let key: string;
@@ -26,8 +26,11 @@
 		}
 	});
 
+	const dispatch = createEventDispatcher();
+
 	function remove(_:any) {
 		fetch(`/api/delete/${doc.path}`, {headers: {"key":key}});	
+		dispatch('delete', {path: doc.path});
 
 }
 
@@ -45,10 +48,11 @@
 <style lang="scss">
 	@import "../assets/colors.scss";
 	img {
-		max-width: 200px;
+		max-width: 100%;
 	}
 
 	.card {
+		min-width: 100%;
 		padding: 5px;
 		background-color: lighten($bg-primary, 5%);
 		border-radius: 9px;
@@ -58,13 +62,13 @@
 			background-color: red;
 			border-radius: 50%;
 			position: absolute;
-			width: 10px;
-			height: 10px;
-			line-height: 10px;
+			width: 20px;
+			height: 20px;
+			line-height: 20px;
 			right: 0px;
 			top: 0px;
 			padding: 5px;
-			font-size: 10px;
+			font-size: 20px;
 			font-weight: bold;
 			text-align: center;
 		}
